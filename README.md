@@ -73,6 +73,11 @@ creates a health probe for the load balancer
 ![image](https://user-images.githubusercontent.com/90932638/235211893-47cecc1e-624b-47c2-9b5b-b3082d63ed17.png)
 
 *8. Create a container to store the Virtual Machine Datas and Managed Disks*
+
+
+
+![image](https://user-images.githubusercontent.com/90932638/235212103-3f9525c7-a27f-43f9-88f9-e7d2a52e9a2c.png)
+
 *9. Create a managed disk and manage attaching a Disk to a Virtual Machine*
 
 

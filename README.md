@@ -2,6 +2,8 @@
 Deploy resources in Azure using Terraform
 
 *1. Create a Resource Group*
+![image](https://user-images.githubusercontent.com/90932638/235210349-3ae264af-763e-4de5-a857-f7c64b7a675f.png)
+
 *2. Create a Virtual Network*
 *3. Create 3 Subnets ( frontend , backend and middle subnet )*
 *4. Create a Load Balancer. Create and connect new Public IP to the Load Balancer*

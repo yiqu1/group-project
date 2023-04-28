@@ -30,3 +30,41 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attach" {
   lun                = "10"
   caching            = "ReadWrite"
 }
+
+# Create a network interface card
+resource "azurerm_network_interface" "nic-1" {
+  name                = "my-nic-1"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  ip_configuration {
+    name                          = "ipconfig1-frontend"
+    subnet_id                     = azurerm_subnet.subnet[0].id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_network_interface" "nic-2" {
+  name                = "my-nic-2"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  ip_configuration {
+    name                          = "ipconfig1-backend"
+    subnet_id                     = azurerm_subnet.subnet[1].id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+# Association between a Network Interface and a Load Balancer's Backend Address Pool.
+resource "azurerm_network_interface_backend_address_pool_association" "association1" {
+  network_interface_id    = azurerm_network_interface.nic-1.id
+  ip_configuration_name  = "ipconfig1-frontend"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.pool.id
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "association2" {
+  network_interface_id    = azurerm_network_interface.nic-2.id
+  ip_configuration_name  = "ipconfig1-backend"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.pool.id
+}

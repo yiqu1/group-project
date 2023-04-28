@@ -42,3 +42,19 @@ resource "azurerm_lb" "lb" {
     public_ip_address_id = azurerm_public_ip.publicip11.id
   }
 }
+
+# Create a storage account
+resource "azurerm_storage_account" "groupproject" {
+  name                     = "fdmgroupproject11"
+  resource_group_name      = var.resource_group_name
+  location                 = var.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+# Create a container to store the tfstate file
+resource "azurerm_storage_container" "terraform_state" {
+  name                  = "terraform-state"
+  storage_account_name  = azurerm_storage_account.groupproject.name
+  container_access_type = "private"
+}

@@ -6,7 +6,7 @@
 
 # Create a Virtual Network
 resource "azurerm_virtual_network" "vnet" {
-  name                = var.virtual_network_name
+  name                = "myvirtualnetwork"
   address_space       = ["10.0.0.0/16"]
   location            = var.location
   resource_group_name = var.resource_group_name
@@ -17,7 +17,7 @@ resource "azurerm_subnet" "subnet" {
   count               = length(var.subnet_names)
   name                = var.subnet_names[count.index]
   resource_group_name = var.resource_group_name
-  virtual_network_name= var.virtual_network_name
+  virtual_network_name= azurerm_virtual_network.vnet.name
   address_prefixes    = ["10.0.${count.index}.0/24"]
 }
 
@@ -43,6 +43,32 @@ resource "azurerm_lb" "lb" {
   }
 }
 
+# Create a Load Balancer backend pool
+resource "azurerm_lb_backend_address_pool" "pool" {
+  loadbalancer_id = azurerm_lb.lb.id
+  name            = "mybackendpool"
+}
+
+# creates a health probe for the load balancer
+resource "azurerm_lb_probe" "probe" {
+  name                = "myprobe"
+  loadbalancer_id     = azurerm_lb.lb.id
+  port                = 80
+}
+
+#Create a Load Balancer rule
+resource "azurerm_lb_rule" "rule" {
+  name                           = "myloadbalancerrule"
+  loadbalancer_id                = azurerm_lb.lb.id
+  load_distribution              = "Default"
+  frontend_ip_configuration_name = "myfrontendip"
+  backend_address_pool_ids        = [azurerm_lb_backend_address_pool.pool.id]
+  protocol                       = "Tcp"
+  frontend_port                  = 80
+  backend_port                   = 80
+  probe_id                       = azurerm_lb_probe.probe.id
+}
+
 # Create a storage account
 resource "azurerm_storage_account" "groupproject" {
   name                     = "fdmgroupproject11"
@@ -57,6 +83,45 @@ resource "azurerm_storage_container" "terraform_state" {
   name                  = "terraform-state"
   storage_account_name  = azurerm_storage_account.groupproject.name
   container_access_type = "private"
+}
+
+# Create a network interface card
+resource "azurerm_network_interface" "nic-1" {
+  name                = "my-nic-1"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  ip_configuration {
+    name                          = "ipconfig1-frontend"
+    subnet_id                     = azurerm_subnet.subnet[0].id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+resource "azurerm_network_interface" "nic-2" {
+  name                = "my-nic-2"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  ip_configuration {
+    name                          = "ipconfig1-backend"
+    subnet_id                     = azurerm_subnet.subnet[1].id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
+
+# Association between a Network Interface and a Load Balancer's Backend Address Pool.
+resource "azurerm_network_interface_backend_address_pool_association" "association1" {
+  network_interface_id    = azurerm_network_interface.nic-1.id
+  ip_configuration_name  = "ipconfig1-frontend"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.pool.id
+}
+
+resource "azurerm_network_interface_backend_address_pool_association" "association2" {
+  network_interface_id    = azurerm_network_interface.nic-2.id
+  ip_configuration_name  = "ipconfig1-backend"
+  backend_address_pool_id = azurerm_lb_backend_address_pool.pool.id
 }
 
 # Create a VM

@@ -36,6 +36,8 @@ Create a Load Balancer backend pool
 
 
 creates a health probe for the load balancer
+
+
 ![image](https://user-images.githubusercontent.com/90932638/235211189-de2b7239-a2d6-4121-9c89-72ae7168cf27.png)
 
 
@@ -55,6 +57,16 @@ creates a health probe for the load balancer
 
 
 *7. Create two network interface card in virtual-machines.tf*
+
+
+![image](https://user-images.githubusercontent.com/90932638/235211680-63211acb-3b1d-4be7-891b-822e1b59e3d1.png)
+
+
+![image](https://user-images.githubusercontent.com/90932638/235211720-a81e0fef-bf78-449a-9227-deb012f9c5d8.png)
+
+
+![image](https://user-images.githubusercontent.com/90932638/235211738-32a80086-5198-415a-85a7-c637d6ab01de.png)
+
 *8. Create an availability set*
 *8. Create a container to store the Virtual Machine Datas and Managed Disks*
 *9. Create a managed disk and manage attaching a Disk to a Virtual Machine*

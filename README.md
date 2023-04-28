@@ -1,5 +1,6 @@
-### Azure – Terraform Project
-# group-project
+# Azure – Terraform Project
+Deploy resources in Azure using Terraform
+
 *1. Create a Resource Group*
 *2. Create a Virtual Network*
 *3. Create 3 Subnets ( frontend , backend and middle subnet )*

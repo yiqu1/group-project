@@ -1,8 +1,8 @@
 # Create a Resource Group
-resource "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
-  location = var.location
-}
+# resource "azurerm_resource_group" "rg" {
+#   name     = var.resource_group_name
+#   location = var.location
+# }
 
 # Create a Virtual Network
 resource "azurerm_virtual_network" "vnet" {
@@ -57,4 +57,39 @@ resource "azurerm_storage_container" "terraform_state" {
   name                  = "terraform-state"
   storage_account_name  = azurerm_storage_account.groupproject.name
   container_access_type = "private"
+}
+
+# Create a VM
+resource "azurerm_virtual_machine" "vm" {
+  name                  = "myvm"
+  location              = var.location
+  resource_group_name   = var.resource_group_name
+  network_interface_ids = [azurerm_network_interface.nic-1.id, azurerm_network_interface.nic-2.id]
+  primary_network_interface_id = azurerm_network_interface.nic-1.id
+  vm_size               = "Standard_DS1_v2"
+  availability_set_id = azurerm_availability_set.avset.id
+
+  storage_os_disk {
+    name              = "myosdisk1"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Standard_LRS"
+  }
+
+  storage_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "16.04-LTS"
+    version   = "latest"
+  }
+
+  os_profile {
+    computer_name  = "hostname"
+    admin_username = "testaccount"
+    admin_password = "Password123!"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = false
+  }
 }

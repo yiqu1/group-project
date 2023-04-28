@@ -9,7 +9,20 @@ We use sandbox, so I commoned this code block out, there is no need to create on
 *2. Create a Virtual Network*
 
 
+![image](https://user-images.githubusercontent.com/90932638/235210680-91c742c5-7987-4692-80a1-73c346306ea5.png)
+
 *3. Create 3 Subnets ( frontend , backend and middle subnet )*
+
+
+![image](https://user-images.githubusercontent.com/90932638/235210776-222e53a1-e648-448e-8cea-faf3f2d5effe.png)
+
+
+*Create a public IP address*
+
+
+![image](https://user-images.githubusercontent.com/90932638/235210932-b7443646-4e86-4b8c-bf03-4061f50e337e.png)
+
+
 *4. Create a Load Balancer. Create and connect new Public IP to the Load Balancer*
 *5. Create a Storage Account & a container to store backend.tf*
 *6. Create a VM in main.tf*

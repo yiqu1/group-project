@@ -11,3 +11,12 @@ resource "azurerm_virtual_network" "vnet" {
   location            = var.location
   resource_group_name = var.resource_group_name
 }
+
+# Create 3 subnets
+resource "azurerm_subnet" "subnet" {
+  count               = length(var.subnet_names)
+  name                = var.subnet_names[count.index]
+  resource_group_name = var.resource_group_name
+  virtual_network_name= var.virtual_network_name
+  address_prefixes    = ["10.0.${count.index}.0/24"]
+}

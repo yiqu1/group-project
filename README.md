@@ -68,5 +68,13 @@ creates a health probe for the load balancer
 ![image](https://user-images.githubusercontent.com/90932638/235211738-32a80086-5198-415a-85a7-c637d6ab01de.png)
 
 *8. Create an availability set*
+
+
+![image](https://user-images.githubusercontent.com/90932638/235211893-47cecc1e-624b-47c2-9b5b-b3082d63ed17.png)
+
 *8. Create a container to store the Virtual Machine Datas and Managed Disks*
 *9. Create a managed disk and manage attaching a Disk to a Virtual Machine*
+
+
+![image](https://user-images.githubusercontent.com/90932638/235211938-cc67c579-3caf-4ee6-a6e8-cea1f23e37f5.png)
+

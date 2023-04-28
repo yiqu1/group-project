@@ -50,6 +50,7 @@ creates a health probe for the load balancer
 
 ![image](https://user-images.githubusercontent.com/90932638/235211360-f6fd4dcf-2f55-415e-9a23-003265149121.png)
 
+
 *6. Create a VM in main.tf*
 
 

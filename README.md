@@ -83,3 +83,8 @@ creates a health probe for the load balancer
 
 ![image](https://user-images.githubusercontent.com/90932638/235211938-cc67c579-3caf-4ee6-a6e8-cea1f23e37f5.png)
 
+
+backend.tf ( to store the tfstate file in the Azure Cloud. Configure the existing or a new storage container )
+
+
+![image](https://user-images.githubusercontent.com/90932638/235212823-672c6c77-944f-4e64-a69c-48b2f0ac913a.png)

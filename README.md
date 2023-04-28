@@ -85,6 +85,13 @@ creates a health probe for the load balancer
 
 
 backend.tf ( to store the tfstate file in the Azure Cloud. Configure the existing or a new storage container )
+Need to run terraform init
 
 
 ![image](https://user-images.githubusercontent.com/90932638/235212823-672c6c77-944f-4e64-a69c-48b2f0ac913a.png)
+
+
+Deploy resources in Azure using command:
+•	Run { terraform init } command and to see the plan run { terraform plan } command
+•	To provision the environment , run { terraform apply } command
+
